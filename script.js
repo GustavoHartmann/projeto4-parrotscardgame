@@ -6,19 +6,22 @@ while(qtd % 2 !== 0 || qtd > 14 || qtd < 4) {
 
 let gifs = ["bobross", "bobross", "explody", "explody", "fiesta", "fiesta", "metal", "metal", "revertit", "revertit", "triplets", "triplets", "unicorn", "unicorn"]
 
-const cartas = document.querySelector(".cards");
-
-gifs.sort(comparador);
+let randomGifs = [];
 
 for(let i = 0; i < qtd; i++) {
-    cartas.innerHTML += `
+    randomGifs.push(gifs[i]);
+}
+
+randomGifs.sort(comparador);
+
+for(let i = 0; i < qtd; i++) {
+    document.querySelector(".cards").innerHTML += `
             <div class="card" onclick="virarCarta(this)">
-                <img src="./IMG/front.png" class="verso">
-                <img src="./IMG/${gifs[i]}parrot.gif" class="hide frente">
+                <img src="./IMG/${randomGifs[i]}parrot.gif" class="frente">
             </div>
     `
 }
 
 function comparador() { 
-	return Math.random() - 0.5; 
+	return Math.random() - 0.5;
 }
