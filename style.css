@@ -38,6 +38,10 @@ img {
     flex-wrap: wrap;
 }
 
+.hide {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .cartas {
         width: 100%;
