@@ -5,6 +5,7 @@ let cartasViradas = [];
 let cartasClicadas = [];
 let contadorCliques = 0;
 let contadorAcertos = 0;
+let relogio = 0;
 
  function perguntarQuantidadeCartas() {
      qtdCartas = Number(prompt("Com quantas cartas você quer jogar?"))
@@ -16,6 +17,8 @@ let contadorAcertos = 0;
  }
 
  perguntarQuantidadeCartas();
+
+ const idInterval = setInterval(contarTempo, 1000);
 
  function comparador() { 
 	return Math.random() - 0.5; 
@@ -101,7 +104,9 @@ function desbloquearCarta() {
 
 function finalizarJogo() {
     if(contadorAcertos === qtdCartas / 2) {
-        alert(`Você ganhou em ${contadorCliques} jogadas!`)
+        clearInterval(idInterval);
+        alert(`Você ganhou em ${contadorCliques} jogadas e ${relogio} segundos!`);
+        reiniciarPartida();
     }
 }
 
@@ -113,4 +118,18 @@ function gerarBloqueador() {
 function removerBloqueador() {
     const bloqueador = document.querySelector(".cartas :nth-child(1)");
     bloqueador.classList.remove("bloqueador");
+}
+
+function contarTempo() {
+    relogio++;
+    document.querySelector(".relogio").innerHTML = `${relogio}s`
+}
+
+function reiniciarPartida() {
+    let resposta = prompt('você gostaria de reiniciar a partida? ("sim" ou "não")');
+    if(resposta === "sim") {
+        window.location.reload();
+    } else if(resposta !== "não") {
+        reiniciarPartida();
+    }
 }
