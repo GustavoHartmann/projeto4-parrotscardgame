@@ -2,7 +2,9 @@ let qtdCartas = 0;
 let papagaios = ["bobross", "bobross", "explody", "explody", "fiesta", "fiesta", "metal", "metal", "revertit", "revertit", "triplets", "triplets", "unicorn", "unicorn"];
 let papagaiosEmbaralhados = [];
 let cartasViradas = [];
-let banana = [];
+let cartasClicadas = [];
+let contadorCliques = 0;
+let contadorAcertos = 0;
 
  function perguntarQuantidadeCartas() {
      qtdCartas = Number(prompt("Com quantas cartas você quer jogar?"))
@@ -47,20 +49,22 @@ function embaralharCartas() {
     verso.classList.remove("escondido");
     carta.classList.add("virada");
     cartasViradas.push(verso.src);
-    banana.push(carta);
+    cartasClicadas.push(carta);
     bloquearCarta(carta);
-    checagemCartas();
+    checarCartas();
+    contadorCliques++;
 }
 
-function checagemCartas() {
+function checarCartas() {
     if(cartasViradas.length === 2) {
         if(cartasViradas[0] !== cartasViradas[1]) {
             setTimeout(desvirarCarta, 1000);
             desbloquearCarta();
         } else {
-            console.log("igual");
+            contadorAcertos++;
             cartasViradas = [];
-            banana = [];
+            cartasClicadas = [];
+            setTimeout(finalizarJogo, 500);
         }
         
     }
@@ -87,8 +91,13 @@ function bloquearCarta(carta) {
 }
 
 function desbloquearCarta() {
-    console.log(banana);
-    banana[0].setAttribute("onclick", "virarCarta(this)");
-    banana[1].setAttribute("onclick", "virarCarta(this)");
-    banana = [];
+    cartasClicadas[0].setAttribute("onclick", "virarCarta(this)");
+    cartasClicadas[1].setAttribute("onclick", "virarCarta(this)");
+    cartasClicadas = [];
+}
+
+function finalizarJogo() {
+    if(contadorAcertos === qtdCartas / 2) {
+        alert(`Você ganhou em ${contadorCliques} jogadas!`)
+    }
 }
