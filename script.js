@@ -57,6 +57,7 @@ function embaralharCartas() {
 
 function checarCartas() {
     if(cartasViradas.length === 2) {
+        gerarBloqueador();
         if(cartasViradas[0] !== cartasViradas[1]) {
             setTimeout(desvirarCarta, 1000);
             desbloquearCarta();
@@ -64,6 +65,7 @@ function checarCartas() {
             contadorAcertos++;
             cartasViradas = [];
             cartasClicadas = [];
+            removerBloqueador();
             setTimeout(finalizarJogo, 500);
         }
         
@@ -84,6 +86,7 @@ function desvirarCarta() {
         }
     }
     cartasViradas = [];
+    removerBloqueador();
 }
 
 function bloquearCarta(carta) {
@@ -100,4 +103,14 @@ function finalizarJogo() {
     if(contadorAcertos === qtdCartas / 2) {
         alert(`Você ganhou em ${contadorCliques} jogadas!`)
     }
+}
+
+function gerarBloqueador() {
+    const bloqueador = document.querySelector(".cartas :nth-child(1)");
+    bloqueador.classList.add("bloqueador");
+}
+
+function removerBloqueador() {
+    const bloqueador = document.querySelector(".cartas :nth-child(1)");
+    bloqueador.classList.remove("bloqueador");
 }

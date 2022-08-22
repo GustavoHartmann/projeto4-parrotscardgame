@@ -3,6 +3,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #EEF9BF;
+    overflow: hidden;
 }
 
 h1 {
@@ -54,8 +55,24 @@ img {
     transform:rotatey(180deg);
 }
 
+.bloqueador {
+    width: 900px;
+    height: 2500px;
+
+    position: absolute;
+    z-index: 1;
+}
+
 @media (max-width: 900px) {
+    body {
+        overflow: auto;
+    }
+
     .cartas {
+        width: 100%;
+    }
+
+    .bloqueador {
         width: 100%;
     }
 }
